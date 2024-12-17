@@ -6,13 +6,13 @@ defmodule DeeperNetwork.Node.Configurator do
   def setup(node_name, cookie, ip \\ nil) do
     # Se IP não for fornecido, tenta pegar IP público
     ip = ip || get_public_ip()
-    
+
     # Inicia o kernel de rede com nome do nó
     :net_kernel.start([String.to_atom("#{node_name}@#{ip}"), :longnames])
-    
+
     # Define o cookie de segurança
     :erlang.set_cookie(Node.self(), String.to_atom(cookie))
-    
+
     {:ok, node_name}
   end
 
@@ -21,10 +21,10 @@ defmodule DeeperNetwork.Node.Configurator do
     |> Enum.map(&String.to_atom/1)
     |> Enum.each(fn node ->
       case Node.connect(node) do
-        true -> 
+        true ->
           IO.puts(" Conectado a #{node}")
           DeeperNetwork.Communication.Messenger.debug("Nó conectado: #{node}")
-        false -> 
+        false ->
           IO.puts(" Falha ao conectar #{node}")
           DeeperNetwork.Communication.Messenger.error("Falha na conexão com nó: #{node}")
       end
