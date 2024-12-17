@@ -54,7 +54,7 @@ defmodule DeeperNetwork.Communication.Messenger do
     ]
 
     IO.puts(IO.ANSI.format(error_message))
-    Logger.warn("Unexpected message: #{inspect(msg)}")
+    Logger.warning("Unexpected message: #{inspect(msg)}")
 
     {:noreply, state}
   end
