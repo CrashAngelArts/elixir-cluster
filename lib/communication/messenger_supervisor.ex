@@ -8,8 +8,7 @@ defmodule DeeperNetwork.Communication.MessengerSupervisor do
   @impl true
   def init(_init_arg) do
     children = [
-      {Task.Supervisor, name: DeeperNetwork.Communication.ListenerSupervisor},
-      {DeeperNetwork.Communication.Messenger, []}
+      DeeperNetwork.Communication.Messenger
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
